@@ -92,8 +92,37 @@ The application is designed for **real-world usability**, not just demo output.
 - **Smooth animations** powered by Framer Motion
 - **Interactive components**: Dynamic forms, modals, tooltips, notifications
 - **Real-time updates** via Socket.IO
-- **PDF export** for trip itineraries (planned)
+- **PDF export** for trip itineraries
 - **Clean, intuitive UX** with Tailwind CSS
+
+---
+
+## Handling Bad & Unpredictable AI Output (Failure Handling)
+
+A core focus of this application is converting raw, unpredictable LLM text into **reliable, stateful, interactive UI** without crashes:
+
+1. **Structured Data Parsing & Markdown Stripping**:
+   - The backend prompts Gemini for strict JSON structures and automatically strips extraneous markdown formatting (e.g., ````json ... ````) and anomalous characters before parsing.
+
+2. **Multi-Tier Dynamic Fallback Engine**:
+   - If the AI model returns malformed JSON, throws a rate-limit (HTTP 429), suffers network timeouts, or fails to respond, the backend automatically transitions to a **dynamic itinerary generation engine**.
+   - Users are guaranteed a rich, customized, multi-day itinerary with realistic activities, timings, and local eateries—ensuring zero UI crashes or blank screens.
+
+3. **Stateful UI & Stale Response Prevention**:
+   - Uses React state and React Query mutations to track request lifecycle (`idle`, `loading`, `success`, `error`).
+   - Prevents race conditions and stops stale API responses from overwriting newer user requests.
+
+4. **Comprehensive Loading, Empty, and Error States**:
+   - Real-time animated loading spinners during generation.
+   - User-friendly error banners with one-click retry capabilities.
+
+---
+
+## AI-Usage Note
+
+In accordance with the assignment guidelines:
+- **AI Tools Used**: Used AI assistants (ChatGPT / Claude / Copilot) for prompt engineering and iterative schema refinement, error-handling scaffolding, and test cases.
+- **Original Implementation**: All component hierarchies, state management flows, full-stack API integration, OpenStreetMap & routing hooks, security configurations, and live cloud deployment were designed, tested, and implemented by the developer.
 
 ---
 

@@ -16,9 +16,9 @@ AI Trip Planner combines **Google Gemini AI**, **OpenStreetMap**, and **OSRM rou
 
 ## Links
 
-- **Live Application**: [https://trips-planner-blue.vercel.app/](https://trips-planner-blue.vercel.app/)
-- **Video Demo**: [https://youtu.be/2isgUskJNqY](https://youtu.be/2isgUskJNqY)
-- **Portfolio**: [https://harshlad.vercel.app/](https://harshlad.vercel.app/)
+- **Live Application**: [https://ai-trip-planner-f39y.onrender.com/](https://ai-trip-planner-f39y.onrender.com/)
+- **GitHub Repository**: [https://github.com/Himanshusinghyadavup61/Ai-trip-planner](https://github.com/Himanshusinghyadavup61/Ai-trip-planner)
+- **Developer Profile**: [https://github.com/Himanshusinghyadavup61](https://github.com/Himanshusinghyadavup61)
 
 ---
 
@@ -255,8 +255,8 @@ AI-TripPlanner/
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/ladHarsh/AI-TripPlanner.git
-cd AI-TripPlanner
+git clone https://github.com/Himanshusinghyadavup61/Ai-trip-planner.git
+cd Ai-trip-planner
 
 # 2. Install all dependencies
 npm run install-all
@@ -513,12 +513,12 @@ This project is licensed under the **MIT License**.
 
 ## Author
 
-**Harsh Lad**  
+**Himanshu Singh Yadav**  
 Full Stack & AI Engineer
 
-- **GitHub**: [@ladHarsh](https://github.com/ladHarsh)
-- **Portfolio**: [harshlad.vercel.app](https://harshlad.vercel.app/)
-- **Email**: harshlad.dev@gmail.com
+- **GitHub**: [@Himanshusinghyadavup61](https://github.com/Himanshusinghyadavup61)
+- **Live Application**: [https://ai-trip-planner-f39y.onrender.com/](https://ai-trip-planner-f39y.onrender.com/)
+- **Email**: himanshusinghyadavup61@gmail.com
 
 ---
 
@@ -528,8 +528,8 @@ Full Stack & AI Engineer
 - **OpenStreetMap** for free, open-source mapping data
 - **Nominatim** for geocoding services
 - **OSRM** for routing and directions
-- **MongoDB** for flexible database solutions
-- **Vercel** & **Render** for free hosting
+- **MongoDB Atlas** for cloud database solutions
+- **Render** for cloud application hosting
 - **React** and **Node.js** communities
 
 ---
@@ -538,12 +538,12 @@ Full Stack & AI Engineer
 
 If you encounter issues:
 
-1. Check the [Issues](https://github.com/ladHarsh/AI-TripPlanner/issues) page
+1. Check the [Issues](https://github.com/Himanshusinghyadavup61/Ai-trip-planner/issues) page
 2. Create a new issue with detailed information
-3. Contact: harshlad.dev@gmail.com
+3. Contact: himanshusinghyadavup61@gmail.com
 
 ---
 
 **AI Trip Planner** — Practical AI-assisted travel planning with real-world, free data.
 
-Made with ❤️ by Harsh Lad
+Made with ❤️ by Himanshu Singh Yadav

@@ -17,6 +17,7 @@ AI Trip Planner combines **Google Gemini AI**, **OpenStreetMap**, and **OSRM rou
 ## Links
 
 - **Live Application**: [https://ai-trip-planner-f39y.onrender.com/](https://ai-trip-planner-f39y.onrender.com/)
+- **Demo Video**: [Watch Demo Video (Google Drive)](https://drive.google.com/file/d/13JRRaAsfEpGr4SK74McZaUzs9DsIKhR5/view?usp=drivesdk)
 - **GitHub Repository**: [https://github.com/Himanshusinghyadavup61/Ai-trip-planner](https://github.com/Himanshusinghyadavup61/Ai-trip-planner)
 - **Developer Profile**: [https://github.com/Himanshusinghyadavup61](https://github.com/Himanshusinghyadavup61)
 
@@ -540,6 +541,7 @@ Full Stack & AI Engineer
 
 - **GitHub**: [@Himanshusinghyadavup61](https://github.com/Himanshusinghyadavup61)
 - **Live Application**: [https://ai-trip-planner-f39y.onrender.com/](https://ai-trip-planner-f39y.onrender.com/)
+- **Demo Video**: [Watch Demo Video (Google Drive)](https://drive.google.com/file/d/13JRRaAsfEpGr4SK74McZaUzs9DsIKhR5/view?usp=drivesdk)
 - **Email**: himanshusinghyadavup61@gmail.com
 
 ---

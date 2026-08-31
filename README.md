@@ -1,6 +1,6 @@
 # AI Trip Planner
 
-![Stack](https://img.shields.io/badge/Stack-MERN-green) ![AI](https://img.shields.io/badge/AI-Google%20Gemini-orange) ![Maps](https://img.shields.io/badge/Maps-OpenStreetMap-blue) ![Routing](https://img.shields.io/badge/Routing-OSRM-purple) ![Auth](https://img.shields.io/badge/Auth-JWT-red) ![Deployment](https://img.shields.io/badge/Deployment-Vercel%20%7C%20Render-black) ![License](https://img.shields.io/badge/License-MIT-yellow)
+![Stack](https://img.shields.io/badge/Stack-MERN-green) ![AI](https://img.shields.io/badge/AI-Google%20Gemini-orange) ![Maps](https://img.shields.io/badge/Maps-OpenStreetMap-blue) ![Routing](https://img.shields.io/badge/Routing-OSRM-purple) ![Auth](https://img.shields.io/badge/Auth-JWT-red) ![Deployment](https://img.shields.io/badge/Deployment-Render-black) ![License](https://img.shields.io/badge/License-MIT-yellow)
 
 **AI Trip Planner** is a full-stack MERN application that uses AI-assisted reasoning and free, open-source mapping services to generate intelligent travel itineraries in real time.
 
@@ -463,49 +463,47 @@ NODE_ENV=production npm start
 
 ---
 
-## Deployment
+## Deployment (All-in-One on Render)
 
-### Frontend (Vercel)
+The entire full-stack application (Express API + React Client) is deployed together as a single unified service on **Render**:
 
-1. **Connect GitHub to Vercel**
-2. **Configure Build Settings**:
-   - **Root Directory**: `client`
-   - **Build Command**: `npm run build`
-   - **Output Directory**: `build`
+1. **Connect GitHub to Render**:
+   - Create a **New Web Service** on [Render](https://dashboard.render.com/) and connect your repository: `Himanshusinghyadavup61/Ai-trip-planner`.
+
+2. **Configure Service Settings**:
+   - **Environment**: `Node`
+   - **Branch**: `main`
+   - **Build Command**: `npm run install-all && npm run build`
+   - **Start Command**: `cd server && node server.js`
+   - **Instance Type**: `Free`
+
 3. **Environment Variables**:
-   - `REACT_APP_API_URL`: `https://your-backend.onrender.com/api`
-4. **Deploy** - Vercel auto-deploys on push to main
-
-### Backend (Render)
-
-1. **Create Web Service on Render**
-2. **Configure Settings**:
-   - **Root Directory**: `server`
-   - **Build Command**: `npm install`
-   - **Start Command**: `node server.js`
-3. **Environment Variables** (copy from `.env.example`):
-   ```
+   ```env
    NODE_ENV=production
-   MONGODB_URI=your_mongodb_atlas_uri
-   JWT_ACCESS_SECRET=your_secret
-   JWT_REFRESH_SECRET=your_secret
-   GEMINI_API_KEY=your_key
-   ALLOWED_ORIGINS=https://your-vercel-app.vercel.app
-   CLIENT_URL=https://your-vercel-app.vercel.app
+   PORT=5000
+   MONGODB_URI=mongodb+srv://himanshusinghyadavup61_db_user:lEFvziPbYs6ncPnm@cluster0.ge3ghpz.mongodb.net/ai-trip-planner?retryWrites=true&w=majority&appName=Cluster0
+   GEMINI_API_KEY=your_gemini_api_key
+   GEMINI_MODEL=gemini-3.6-flash
+   JWT_ACCESS_SECRET=your_super_secure_jwt_access_secret
+   JWT_REFRESH_SECRET=your_super_secure_jwt_refresh_secret
+   SESSION_SECRET=your_super_secure_session_secret
+   JWT_ACCESS_EXPIRY=15m
+   JWT_REFRESH_EXPIRY=7d
    ```
-4. **Deploy** - Render auto-deploys on push
+
+4. **Live URL**: [https://ai-trip-planner-f39y.onrender.com/](https://ai-trip-planner-f39y.onrender.com/)
 
 ---
 
 ## Engineering Learnings
 
 - Integrating **multiple free APIs** (OSM, Nominatim, Overpass, OSRM) in a production system
-- Managing **AI latency** and implementing retry logic
+- Managing **AI latency** and implementing retry logic with Gemini 3.6
 - Designing **scalable MERN architectures** with modular services
-- Handling **cross-origin authentication** (Vercel + Render)
-- Building **production-ready API layers** with proper error handling
+- Deploying a **unified full-stack architecture on Render** (single origin, serving compiled React static assets directly via Express)
+- Building **production-ready API layers** with proper error handling and dynamic fallbacks
 - Balancing **AI assistance** with deterministic logic
-- Implementing **dual-token JWT** authentication system
+- Implementing **dual-token JWT** authentication system with automatic silent refresh
 - **Rate limiting** and security best practices
 
 ---

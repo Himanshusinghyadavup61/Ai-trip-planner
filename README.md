@@ -24,29 +24,24 @@ AI Trip Planner combines **Google Gemini AI**, **OpenStreetMap**, and **OSRM rou
 
 ## Problem Statement
 
-Most travel planning platforms suffer from:
+Most AI travel applications act as simple text chatbots that output unstructured, hard-to-read walls of text. This presents several key technical challenges:
 
-- **Static, non-personalized itineraries** that don't adapt to user preferences
-- **Expensive API dependencies** that limit accessibility
-- **Poor integration** between planning, navigation, and location discovery
-- **No AI-driven reasoning** for trip optimization
-- **Fragmented user experience** across multiple platforms
-
-Users are forced to manually coordinate between multiple tools for maps, planning, and navigation.
+- **Unstructured & Non-Interactive Outputs**: Chatbot responses cannot be easily expanded, reordered, or explored visually on interactive maps.
+- **Unpredictable AI Failures**: Real LLMs frequently return malformed JSON, invalid data shapes, slow network responses, or rate limits that crash client frontends.
+- **Stale State & Race Conditions**: Asynchronous AI calls can cause out-of-order responses to overwrite newer user inputs if not managed with proper lifecycle states.
+- **API Key Vulnerabilities**: Client-side LLM calls risk exposing secret API keys in the browser bundle.
 
 ---
 
 ## Solution Overview
 
-AI Trip Planner solves this by acting as a **centralized, intelligent planning system** that:
+**AI Trip Planner** solves this by taking free-form user trip inputs and turning the result into an **interactive, stateful planning tool** rather than a chatbot:
 
-- **Generates AI-powered itineraries** based on user preferences using Google Gemini AI
-- **Integrates free location services** via OpenStreetMap, Nominatim, and Overpass API
-- **Provides real-time routing** using OSRM (Open Source Routing Machine)
-- **Supports secure authentication** with JWT dual-token system
-- **Maintains a scalable MERN backend** for future expansion
-
-The application is designed for **real-world usability**, not just demo output.
+- **Structured Data Parsing**: Prompts Google Gemini AI for strict JSON schemas and parses the output into interactive, day-by-day expandable timeline cards, activity badges, and cost breakdowns.
+- **Resilient AI Failure Handling**: Implements JSON sanitization, markdown stripping, and an automatic dynamic fallback generator to ensure zero UI crashes when the model encounters errors, rate limits, or bad output.
+- **Integrated Free Mapping**: Embeds interactive OpenStreetMap, Nominatim geocoding, and OSRM routing with zero paid API dependencies.
+- **Secure Backend Routing**: Proxies all LLM requests through a protected Express server to keep API keys completely safe from client exposure.
+- **Session Persistence**: Saves generated trips and drafts to MongoDB Atlas for instant retrieval on the user Dashboard.
 
 ---
 

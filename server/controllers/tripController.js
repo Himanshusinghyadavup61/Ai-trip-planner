@@ -30,36 +30,121 @@ const createTrip = async (req, res) => {
       status,
     } = req.body;
 
-    // Determine status based on new rules
-    // If status is explicitly provided, use it
-    // If itinerary.days exists and has length > 0, set to 'upcoming', else 'draft'
-    let tripStatus;
-    if (status) {
-      tripStatus = status;
-    } else if (
-      itinerary &&
-      Array.isArray(itinerary.days) &&
-      itinerary.days.length > 0
-    ) {
-      tripStatus = "upcoming";
-    } else {
-      tripStatus = "draft";
+    // Normalize destination
+    let destinationObj = {
+      city: "Destination",
+      country: "Worldwide",
+      coordinates: { lat: 0, lng: 0 },
+    };
+
+    if (typeof destination === "string") {
+      const parts = destination.split(",").map((s) => s.trim());
+      destinationObj.city = parts[0] || destination;
+      destinationObj.country = parts[1] || parts[0] || "Worldwide";
+    } else if (destination && typeof destination === "object") {
+      destinationObj = {
+        city: destination.city || destination.name || "Destination",
+        country: destination.country || "Worldwide",
+        coordinates: destination.coordinates || { lat: 0, lng: 0 },
+      };
+    }
+
+    // Normalize preferences
+    const durationVal =
+      parseInt(preferences?.duration) ||
+      parseInt(req.body.duration) ||
+      1;
+
+    const preferencesObj = {
+      budget: preferences?.budget || req.body.budget || {
+        min: 0,
+        max: 0,
+        currency: "INR",
+      },
+      duration: durationVal,
+      travelStyle:
+        preferences?.travelStyle || req.body.travelStyle || "mid-range",
+      groupSize:
+        parseInt(preferences?.groupSize) ||
+        parseInt(req.body.travelers) ||
+        1,
+      interests: preferences?.interests || req.body.interests || [],
+      accommodation:
+        preferences?.accommodation || req.body.accommodation || "hotel",
+      transport: preferences?.transport || req.body.transport || ["flight"],
+    };
+
+    // Normalize itinerary days
+    let daysArray = [];
+    if (itinerary?.days && Array.isArray(itinerary.days)) {
+      daysArray = itinerary.days;
+    } else if (itinerary?.dailyPlans && Array.isArray(itinerary.dailyPlans)) {
+      daysArray = itinerary.dailyPlans;
+    } else if (Array.isArray(itinerary)) {
+      daysArray = itinerary;
+    }
+
+    const normalizedDays = daysArray.map((day, index) => ({
+      day: day.day || index + 1,
+      date: day.date ? new Date(day.date) : undefined,
+      title: day.title || `Day ${index + 1}`,
+      theme: day.theme || "",
+      activities: Array.isArray(day.activities)
+        ? day.activities.map((act) => ({
+            time: act.time || "",
+            activity: act.activity || act.title || act.name || "Activity",
+            location: {
+              name: act.location?.name || act.location || "",
+              address: act.location?.address || "",
+              coordinates: act.location?.coordinates || { lat: 0, lng: 0 },
+            },
+            duration: act.duration || 2,
+            cost: {
+              amount: act.cost?.amount || 0,
+              currency: act.cost?.currency || "INR",
+            },
+            description: act.description || "",
+            type: act.type || "activity",
+            bookingRequired: act.bookingRequired || false,
+          }))
+        : [],
+      totalCost: {
+        amount: day.totalCost?.amount || 0,
+        currency: day.totalCost?.currency || "INR",
+      },
+    }));
+
+    const normalizedItinerary = {
+      generatedBy: itinerary?.generatedBy || "AI",
+      generatedAt: itinerary?.generatedAt || new Date(),
+      days: normalizedDays,
+      totalCost: itinerary?.totalCost || itinerary?.totalEstimatedCost || {
+        amount: 0,
+        currency: "INR",
+      },
+      summary: itinerary?.summary || description || "",
+    };
+
+    // Determine status
+    let tripStatus = status;
+    if (!tripStatus) {
+      tripStatus = normalizedDays.length > 0 ? "upcoming" : "draft";
     }
 
     // Create trip
     const trip = await Trip.create({
       user: req.user.id,
-      title,
-      description,
-      destination,
-      preferences,
-      itinerary,
+      title: title || `Trip to ${destinationObj.city}`,
+      description: description || `${durationVal}-day trip to ${destinationObj.city}`,
+      destination: destinationObj,
+      preferences: preferencesObj,
+      itinerary: normalizedItinerary,
       status: tripStatus,
       startDate: startDate ? new Date(startDate) : undefined,
       endDate: endDate ? new Date(endDate) : undefined,
-      notes,
+      notes: notes || "",
       isPublic: isPublic || false,
-      tags: tags || [],
+      tags: tags || [destinationObj.city.toLowerCase(), destinationObj.country.toLowerCase()],
     });
 
     // Populate user information
@@ -72,11 +157,9 @@ const createTrip = async (req, res) => {
     });
   } catch (error) {
     console.error("Create trip error:", error);
-    console.error("Error stack:", error.stack);
-    console.error("Error name:", error.name);
     res.status(500).json({
       success: false,
-      message: "Error creating trip",
+      message: error.message || "Error creating trip",
       error:
         process.env.NODE_ENV === "development"
           ? error.message

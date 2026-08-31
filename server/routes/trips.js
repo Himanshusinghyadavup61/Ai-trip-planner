@@ -19,23 +19,7 @@ const tripValidation = [
   body("title")
     .notEmpty()
     .trim()
-    .isLength({ min: 3, max: 100 })
-    .withMessage("Title must be between 3 and 100 characters"),
-  body("destination.city")
-    .notEmpty()
-    .trim()
-    .withMessage("Destination city is required"),
-  body("destination.country")
-    .notEmpty()
-    .trim()
-    .withMessage("Destination country is required"),
-  body("preferences.duration")
-    .isInt({ min: 1, max: 365 })
-    .withMessage("Duration must be between 1 and 365 days"),
-  body("preferences.budget.max")
-    .optional()
-    .isNumeric()
-    .withMessage("Budget must be a number"),
+    .withMessage("Title is required"),
 ];
 
 const updateTripValidation = [

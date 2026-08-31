@@ -19,66 +19,46 @@ const tripSchema = new mongoose.Schema(
       city: {
         type: String,
         required: true,
+        default: "Destination",
       },
       country: {
         type: String,
-        required: true,
+        default: "Worldwide",
       },
       coordinates: {
-        lat: Number,
-        lng: Number,
+        lat: { type: Number, default: 0 },
+        lng: { type: Number, default: 0 },
       },
     },
 
     // Trip preferences
     preferences: {
       budget: {
-        min: Number,
-        max: Number,
+        min: { type: Number, default: 0 },
+        max: { type: Number, default: 0 },
         currency: {
           type: String,
-          default: "USD",
+          default: "INR",
         },
       },
       duration: {
         type: Number, // in days
-        required: true,
+        default: 1,
       },
       travelStyle: {
         type: String,
-        enum: ["budget", "luxury", "adventure", "relaxation", "cultural"],
-        default: "budget",
+        default: "mid-range",
       },
       groupSize: {
         type: Number,
         default: 1,
       },
-      interests: [
-        {
-          type: String,
-          enum: [
-            "culture",
-            "nature",
-            "food",
-            "adventure",
-            "relaxation",
-            "shopping",
-            "history",
-            "nightlife",
-          ],
-        },
-      ],
+      interests: [{ type: String }],
       accommodation: {
         type: String,
-        enum: ["hotel", "hostel", "apartment", "resort"],
         default: "hotel",
       },
-      transport: [
-        {
-          type: String,
-          enum: ["flight", "train", "bus", "car", "walking"],
-        },
-      ],
+      transport: [{ type: String }],
     },
 
     // AI-generated itinerary
@@ -117,13 +97,11 @@ const tripSchema = new mongoose.Schema(
               description: String,
               type: {
                 type: String,
-                enum: [
-                  "attraction",
-                  "restaurant",
-                  "transport",
-                  "accommodation",
-                  "activity",
-                ],
+                default: "activity",
+              },
+              bookingRequired: {
+                type: Boolean,
+                default: false,
               },
             },
           ],

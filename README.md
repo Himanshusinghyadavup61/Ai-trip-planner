@@ -481,7 +481,7 @@ The entire full-stack application (Express API + React Client) is deployed toget
    ```env
    NODE_ENV=production
    PORT=5000
-   MONGODB_URI=mongodb+srv://himanshusinghyadavup61_db_user:lEFvziPbYs6ncPnm@cluster0.ge3ghpz.mongodb.net/ai-trip-planner?retryWrites=true&w=majority&appName=Cluster0
+   MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/ai-trip-planner?retryWrites=true&w=majority
    GEMINI_API_KEY=your_gemini_api_key
    GEMINI_MODEL=gemini-3.6-flash
    JWT_ACCESS_SECRET=your_super_secure_jwt_access_secret
